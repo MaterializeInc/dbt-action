@@ -2,16 +2,19 @@
 
 set -o pipefail
 
-python3 -m venv dbt
-source dbt/bin/activate
-
+# Install python dependencies
 if [ -z ${DBT_MZ_VERSION} ]
 then
-  echo "DBT_MZ_VERSION is empty, installing the latest version"
-  pip install dbt-materialize
-else
   echo "Installing dbt-materialize version ${DBT_MZ_VERSION}"
   pip install dbt-materialize==${DBT_MZ_VERSION}
+elif [ -z ${POETRY_VERSION} ]
+then
+  echo "Installing poetry version ${POETRY_VERSION}"
+  pip install poetry==${POETRY_VERSION}
+  poetry config virtualenvs.create false && poetry install --no-interaction --no-dev --no-ansi
+else
+  echo "DBT_MZ_VERSION is empty and POETRY_VERSION not set, installing the latest version"
+  pip install dbt-materialize
 fi
 
 dbt_project_folder=${DBT_PROJECT_FOLDER:-./}

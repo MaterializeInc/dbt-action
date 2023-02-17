@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "dbt-action"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "dbt_action"}]
+
+[tool.poetry.dependencies]
+python = "3.10.7"
+dbt-materialize = "<1.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

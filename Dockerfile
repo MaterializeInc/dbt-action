@@ -17,4 +17,7 @@ LABEL description="Materialize dbt adapter GitHub Action"
 COPY profiles.yml.template /profiles.yml
 COPY entrypoint.sh /entrypoint.sh
 
+# Copy poetry files into the container
+COPY poetry.lock pyproject.toml ./
+
 ENTRYPOINT ["/entrypoint.sh"]

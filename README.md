@@ -20,6 +20,7 @@ You can override the default values for the following variables:
 | Name                 | Description                                  | Default       |
 | -------------------- | -------------------------------------------- | ------------- |
 | `DBT_MZ_VERSION`     | `dbt-materialize` adapter version to install | `latest`      |
+| `POETRY_VERSION`     | Poetry version if dbt project is managed with poetry. Cannot be used with `DBT_MZ_VERSION` | |
 | `MZ_DATABASE`        | The database for the Materialize instance    | `materialize` |
 | `MZ_SCHEMA`          | The schema for the Materialize instance      | `public`      |
 | `MZ_CLUSTER`         | The cluster for the Materialize instance     | `default`     |
