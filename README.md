@@ -44,7 +44,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Materialize dbt action
-      uses: bobbyiliev/materialize-dbt-action@main
+      uses: MaterializeInc/dbt-action@main
       with:
         dbt_command: "dbt --version --profiles-dir /"
       env:
