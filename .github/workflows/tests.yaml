@@ -75,7 +75,7 @@ jobs:
         MZ_SCHEMA: dbt_action_ci_cd
         DBT_PROJECT_FOLDER: 'tests/custom_profiles_test'
     - name: dbt version (poetry)
-      uses: bobbyiliev/materialize-dbt-action@main
+      uses: MaterializeInc/dbt-action@main
       with:
         dbt_command: "dbt --version"
       env:
@@ -88,7 +88,7 @@ jobs:
         MZ_SCHEMA: dbt_action_ci_cd
         DBT_PROJECT_FOLDER: 'tests/default_profiles_test'
     - name: dbt debug (poetry)
-      uses: bobbyiliev/materialize-dbt-action@main
+      uses: MaterializeInc/dbt-action@main
       with:
         dbt_command: "dbt debug"
       env:

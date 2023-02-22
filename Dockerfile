@@ -18,6 +18,6 @@ COPY profiles.yml.template /profiles.yml
 COPY entrypoint.sh /entrypoint.sh
 
 # Copy poetry files into the container
-COPY poetry.lock pyproject.toml ./
+COPY poetry.lock* pyproject.toml* ./
 
 ENTRYPOINT ["/entrypoint.sh"]
