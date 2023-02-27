@@ -20,6 +20,7 @@ You can override the default values for the following variables:
 | Name                 | Description                                  | Default       |
 | -------------------- | -------------------------------------------- | ------------- |
 | `DBT_MZ_VERSION`     | `dbt-materialize` adapter version to install | `latest`      |
+| `SKIP_INSTALL` | If the action should skip installing dbt | |
 | `MZ_DATABASE`        | The database for the Materialize instance    | `materialize` |
 | `MZ_SCHEMA`          | The schema for the Materialize instance      | `public`      |
 | `MZ_CLUSTER`         | The cluster for the Materialize instance     | `default`     |
@@ -114,4 +115,39 @@ You can specify a specific version by setting the `DBT_MZ_VERSION` environment v
 ```yaml
 env:
   DBT_MZ_VERSION: 1.3.2
+```
+
+## Usage with Poetry
+If you are using [poetry](https://python-poetry.org/) to manage your dbt dependency, you can choose to skip in the installation of the dbt version with this action and install your necessary dependencies separately.
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Run image
+      uses: abatilo/actions-poetry@v2
+      with:
+        poetry-version: 1.0
+    - name: Poetry install
+      run: poetry config virtualenvs.create false && poetry install --no-interaction --no-dev --no-ansi
+    - name: Materialize dbt action
+      uses: MaterializeInc/dbt-action@main
+      with:
+        dbt_command: "dbt --version --profiles-dir /"
+      env:
+        SKIP_INSTALL: true
+        MZ_PASS: ${{ secrets.MZ_PASS }}
+        MZ_USER: ${{ secrets.MZ_USER }}
+        MZ_HOST: ${{ secrets.MZ_HOST }}
+        MZ_DATABASE: materialize
+        MZ_SCHEMA: public
+        MZ_CLUSTER: default
+        DBT_PROJECT_FOLDER: ${{ env.DBT_PROJECT_FOLDER }}
 ```

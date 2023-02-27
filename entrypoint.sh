@@ -2,10 +2,10 @@
 
 set -o pipefail
 
-python3 -m venv dbt
-source dbt/bin/activate
-
-if [ -z ${DBT_MZ_VERSION} ]
+if [ -z ${SKIP_INSTALL} ]
+then
+  echo "Skipping install of dbt"
+elif [ -z ${DBT_MZ_VERSION} ]
 then
   echo "DBT_MZ_VERSION is empty, installing the latest version"
   pip install dbt-materialize
